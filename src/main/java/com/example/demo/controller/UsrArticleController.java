@@ -15,12 +15,10 @@ import com.example.demo.vo.Article;
 public class UsrArticleController {
 	
 	private ArticleService articleService;
-	private MemberService memberService;
 
 	@Autowired
 	public UsrArticleController(ArticleService articleService, MemberService memberService) {
 		this.articleService = articleService;
-		this.memberService = memberService;
 	}
 
 	@RequestMapping("/usr/article/doAdd")
