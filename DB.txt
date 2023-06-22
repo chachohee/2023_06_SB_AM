@@ -25,11 +25,13 @@ CREATE TABLE `member`(
 	delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
-SELECT * FROM article;
 TRUNCATE article;
-
-SELECT * FROM `member`;
 TRUNCATE `member`;
+
+SELECT * FROM article;
+SELECT * FROM `member`;
+SELECT LAST_INSERT_ID();
+SELECT * FROM `member` WHERE loginId = '아이디';
 
 INSERT INTO article
 SET updateDate = NOW(),
@@ -55,4 +57,3 @@ nickname = 'admin',
 cellphoneNum = '01012345678',
 email = 'admin@gmail.com';
 
-SELECT LAST_INSERT_ID();
