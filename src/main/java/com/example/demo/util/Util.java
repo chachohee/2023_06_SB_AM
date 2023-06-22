@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 public class Util {
+	
 	public static boolean empty(Object obj) {
 		if(obj == null) {
 			return true;
