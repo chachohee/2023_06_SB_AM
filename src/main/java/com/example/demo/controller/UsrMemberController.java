@@ -42,12 +42,20 @@ public class UsrMemberController {
 			return "이메일을 입력해주세요";
 		}
 		
-		memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		int id = memberService.getLastInsertId();
+		if(id == -1) {
+			return Util.f("이미 사용중인 아이디(%s)입니다", loginId);
+		}
+		
+		if(id == -2) {
+			return Util.f("이미 사용중인 닉네임(%s)입니다", nickname);
+		}
+		
+		if(id == -3) {
+			return Util.f("이미 사용중인 이름과 이메일(%s, %s)입니다", name, email);
+		}
 		
 		return memberService.getMemberById(id);
-		
 	}
-
 }
