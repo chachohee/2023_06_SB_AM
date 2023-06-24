@@ -45,7 +45,7 @@ public class UsrArticleController {
 
 		int id = articleService.getLastInsertId();
 
-		return ResultData.from("S-1", Util.f("%d번 게시글이 생성되었습니다", id), articleService.getArticleById(id));
+		return ResultData.from("S-1", Util.f("%d번 게시글이 생성되었습니다", id), "article", articleService.getArticleById(id));
 	}
 
 	@RequestMapping("/usr/article/getArticles")
@@ -58,7 +58,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다.");
 		}
 		
-		return ResultData.from("S-1", "게시물 리스트", articles);
+		return ResultData.from("S-1", "게시물 리스트", "articles", articles);
 	}
 	
 	@RequestMapping("/usr/article/getArticle")
@@ -70,7 +70,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Util.f("%d번 게시글은 존재하지 않습니다", id));
 		}
 		
-		return ResultData.from("S-1", Util.f("%d번 게시글입니다", id), foundArticle);
+		return ResultData.from("S-1", Util.f("%d번 게시글입니다", id), "article", foundArticle);
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
@@ -81,10 +81,14 @@ public class UsrArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 		
+		if(Util.empty(id)) {
+			return ResultData.from("F-1", "삭제할 글 번호를 입력해주세요.");
+		}
+		
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if(foundArticle == null) {
-			return ResultData.from("F-1", Util.f("%d번 게시글은 존재하지 않습니다.", id));
+			return ResultData.from("F-2", Util.f("%d번 게시글은 존재하지 않습니다.", id));
 		}
 		
 		if(foundArticle.getMemberId() != (int) session.getAttribute("loginedMemberId")) {
@@ -93,7 +97,7 @@ public class UsrArticleController {
 		
 		articleService.deleteArticle(id);
 		
-		return ResultData.from("F-1", Util.f("%d번 게시글을 삭제하였습니다.", id));
+		return ResultData.from("S-1", Util.f("%d번 게시글을 삭제하였습니다.", id));
 	}
 	
 	@RequestMapping("/usr/article/doModify")
@@ -104,10 +108,14 @@ public class UsrArticleController {
 			return ResultData.from("F-A", "로그인 후 이용해주세요.");
 		}
 		
+		if(Util.empty(id)) {
+			return ResultData.from("F-1", "수정할 글 번호를 입력해주세요.");
+		}
+		
 		Article foundArticle = articleService.getArticleById(id);
 		
 		if(foundArticle == null) {
-			return ResultData.from("F-1", Util.f("%d번 게시글은 존재하지 않습니다.", id));
+			return ResultData.from("F-2", Util.f("%d번 게시글은 존재하지 않습니다.", id));
 		}
 		
 		//이 게시물 수정 가능한가?(세션에 저장된 memberId랑 게시글에 저장된 memberId가 같은지 확인하는)
