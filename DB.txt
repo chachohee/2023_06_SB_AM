@@ -34,6 +34,12 @@ SELECT * FROM `member`;
 SELECT LAST_INSERT_ID();
 SELECT * FROM `member` WHERE loginId = '아이디';
 
+SELECT a.*, m.name AS writerName
+FROM article AS a
+INNER JOIN `member` AS m 
+ON a.memberId = m.id
+ORDER BY a.id DESC;
+
 INSERT INTO article
 SET updateDate = NOW(),
 memberId = 1,

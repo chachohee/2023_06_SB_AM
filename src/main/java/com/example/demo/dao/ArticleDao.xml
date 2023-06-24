@@ -15,16 +15,18 @@
 	</select>
 	
 	<select id="getArticleById" resultType="Article">
-		SELECT * 
-			FROM article 
-			WHERE id = #{id}
+		SELECT a.*, m.name AS writerName
+			FROM article AS a
+			INNER JOIN `member` AS m 
+			ON a.memberId = m.id
+			WHERE a.id = #{id}
 	</select>
 	<select id="getArticles" resultType="Article">
 		SELECT a.*, m.name AS writerName
 			FROM article AS a
 			INNER JOIN `member` AS m 
 			ON a.memberId = m.id
-			ORDER BY a.id DESC;
+			ORDER BY a.id DESC
 	</select>
 	<update id="modifyArticle">
 		UPDATE article
