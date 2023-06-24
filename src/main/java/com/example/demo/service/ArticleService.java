@@ -22,8 +22,8 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}
 	
-	public void writeArticle(String title, String body) {
-		articleDao.writeArticle(title, body);
+	public void writeArticle(int memberId, String title, String body) {
+		articleDao.writeArticle(memberId, title, body);
 	}
 	
 	public Article getArticleById(int id) {

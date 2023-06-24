@@ -6,6 +6,7 @@
 	<insert id="writeArticle">
 		INSERT INTO article
 			SET updateDate = NOW()
+				, memberId = #{memberId}
 				, title = #{title}
 				, `body` = #{body}
 	</insert>
@@ -19,9 +20,11 @@
 			WHERE id = #{id}
 	</select>
 	<select id="getArticles" resultType="Article">
-		SELECT *
-			FROM article
-			ORDER BY id DESC
+		SELECT a.*, m.name AS writerName
+			FROM article AS a
+			INNER JOIN `member` AS m 
+			ON a.memberId = m.id
+			ORDER BY a.id DESC;
 	</select>
 	<update id="modifyArticle">
 		UPDATE article
