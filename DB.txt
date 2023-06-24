@@ -40,17 +40,17 @@ title = '제목',
 
 INSERT INTO `member`
 SET updateDate = NOW(),
-loginId = 'testId',
-loginPw = 'testPw',
-`name` = 'testName',
-nickname = 'tsetNickName',
+loginId = 'test',
+loginPw = 'test',
+`name` = 'test',
+nickname = 'tset',
 cellphoneNum = '01012345678',
 email = 'test@gmail.com';
 
 INSERT INTO `member`
 SET updateDate = NOW(),
-loginId = 'adminId',
-loginPw = 'adminPw',
+loginId = 'admin',
+loginPw = 'admin',
 authLevel = 3,
 `name` = 'admin',
 nickname = 'admin',

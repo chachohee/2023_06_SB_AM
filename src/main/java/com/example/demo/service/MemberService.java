@@ -51,7 +51,7 @@ public ResultData<Member> doJoin(String loginId, String loginPw, String name, St
 		return memberDao.getMemberByNickname(nickname);
 	}
 
-	private Member getMemberByLoginId(String loginId) {
+	public Member getMemberByLoginId(String loginId) {
 		return memberDao.getMemberByLoginId(loginId);
 	}
 
