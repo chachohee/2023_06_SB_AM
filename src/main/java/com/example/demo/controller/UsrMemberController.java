@@ -50,38 +50,37 @@ public class UsrMemberController {
 		return doJoinRd;
 	}
 	
-	@RequestMapping("/usr/member/doLogin")
-	@ResponseBody
-	public ResultData<Member> doLogin(HttpSession session, String loginId, String loginPw){
+	@RequestMapping("/usr/member/login")
+	public String doLogin(HttpSession session, String loginId, String loginPw){
 		
-		if(session.getAttribute("loginedMemberId") != null) {
-			
-			Member loginedMember = memberService.getMemberById((int) session.getAttribute("loginedMemberId"));
-			
-			return ResultData.from("F-A", Util.f("%s 님이 이미 로그인한 상태입니다.", loginedMember.getLoginId()));
-		}
+//		if(session.getAttribute("loginedMemberId") != null) {
+//			
+//			Member loginedMember = memberService.getMemberById((int) session.getAttribute("loginedMemberId"));
+//			
+//			return ResultData.from("F-A", Util.f("%s 님이 이미 로그인한 상태입니다.", loginedMember.getLoginId()));
+//		}
+//		
+//		if(Util.empty(loginId)) {
+//			return ResultData.from("F-1", "아이디를 입력해주세요");
+//		}
+//		
+//		if(Util.empty(loginPw)) {
+//			return ResultData.from("F-2", "비밀버호를 입력해주세요");
+//		}
+//		
+//		Member member = memberService.getMemberByLoginId(loginId);
+//		
+//		if(member == null) {
+//			return ResultData.from("F-3", Util.f("%s 은(는) 존재하지 않는 아이디입니다.", loginId));
+//		}
+//		
+//		if(member.getLoginPw().equals(loginPw) == false) {
+//			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
+//		}
+//		
+//		session.setAttribute("loginedMemberId", member.getId());
 		
-		if(Util.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요");
-		}
-		
-		if(Util.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀버호를 입력해주세요");
-		}
-		
-		Member member = memberService.getMemberByLoginId(loginId);
-		
-		if(member == null) {
-			return ResultData.from("F-3", Util.f("%s 은(는) 존재하지 않는 아이디입니다.", loginId));
-		}
-		
-		if(member.getLoginPw().equals(loginPw) == false) {
-			return ResultData.from("F-4", "비밀번호가 일치하지 않습니다.");
-		}
-		
-		session.setAttribute("loginedMemberId", member.getId());
-		
-		return ResultData.from("S-1", Util.f("%s 님이 로그인하였습니.", member.getNickname()));
+		return "usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
