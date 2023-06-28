@@ -9,7 +9,8 @@ public class Util {
 		}
 
 		String str = (String) obj;
-		return str.trim().length() == 0;
+		
+		return str.trim().length() == 0; //false -> null이 아닌데(길이가 있는데) 0이랑 같다고 비교했으니까.
 	}
 
 	public static String f(String format, Object... args) {

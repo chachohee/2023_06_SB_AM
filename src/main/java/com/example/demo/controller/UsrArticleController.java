@@ -108,30 +108,29 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public ResultData<Article> doModify(HttpSession session, int id, String title, String body) {
+	public String doModify(HttpSession session, int id, String title, String body) {
 		
-		if(session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-A", "로그인 후 이용해주세요.");
-		}
+//		if(session.getAttribute("loginedMemberId") == null) {
+//			return ResultData.from("F-A", "로그인 후 이용해주세요.");
+//		}
+//		
+//		if(Util.empty(id)) {
+//			return ResultData.from("F-1", "수정할 글 번호를 입력해주세요.");
+//		}
+//		
+//		Article foundArticle = articleService.getArticleById(id);
+//		
+//		if(foundArticle == null) {
+//			return ResultData.from("F-2", Util.f("%d번 게시글은 존재하지 않습니다.", id));
+//		}
+//		
+//		//이 게시물 수정 가능한가?(세션에 저장된 memberId랑 게시글에 저장된 memberId가 같은지 확인하는)
+//		ResultData actorCanModifyRd = articleService.actorCanModify((int) session.getAttribute("loginedMemberId"), foundArticle.getMemberId());
+//		
+//		if(actorCanModifyRd.isFail()) {
+//			return actorCanModifyRd;
+//		}
 		
-		if(Util.empty(id)) {
-			return ResultData.from("F-1", "수정할 글 번호를 입력해주세요.");
-		}
-		
-		Article foundArticle = articleService.getArticleById(id);
-		
-		if(foundArticle == null) {
-			return ResultData.from("F-2", Util.f("%d번 게시글은 존재하지 않습니다.", id));
-		}
-		
-		//이 게시물 수정 가능한가?(세션에 저장된 memberId랑 게시글에 저장된 memberId가 같은지 확인하는)
-		ResultData actorCanModifyRd = articleService.actorCanModify((int) session.getAttribute("loginedMemberId"), foundArticle.getMemberId());
-		
-		if(actorCanModifyRd.isFail()) {
-			return actorCanModifyRd;
-		}
-		
-		return articleService.modifyArticle(id, title, body);
+		return "usr/article/modify";
 	}
 }
