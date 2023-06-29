@@ -59,14 +59,11 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
+	public String showDetail(Model model, int id) {
 		
-		Rq rq = (Rq) req.getAttribute("rq");
-
 		Article article = articleService.getForPrintArticle(id);
 
 		model.addAttribute("article", article);
-		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 
 		return "usr/article/detail";
 	}
@@ -95,9 +92,12 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/modify")
 	public String modify(HttpServletRequest req, Model model, int id) {
 		
+		Rq rq = (Rq) req.getAttribute("rq");
+		
 		Article article = articleService.getForPrintArticle(id);
 
 		model.addAttribute("article", article);
+		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/modify";
 	}

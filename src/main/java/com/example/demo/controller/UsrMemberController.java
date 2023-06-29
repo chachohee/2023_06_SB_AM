@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -24,30 +25,30 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		if(Util.empty(loginId)) {
-			return ResultData.from("F-1", "아이디를 입력해주세요");
+			return Util.jsHistoryBack("아이디를 입력해주세요");
 		}
 		if(Util.empty(loginPw)) {
-			return ResultData.from("F-2", "비밀번호를 입력해주세요");
+			return Util.jsHistoryBack("비밀번호를 입력해주세요");
 		}
 		if(Util.empty(name)) {
-			return ResultData.from("F-3", "이름을 입력해주세요");
+			return Util.jsHistoryBack("이름을 입력해주세요");
 		}
 		if(Util.empty(nickname)) {
-			return ResultData.from("F-4", "닉네임을 입력해주세요");
+			return Util.jsHistoryBack("닉네임을 입력해주세요");
 		}
 		if(Util.empty(cellphoneNum)) {
-			return ResultData.from("F-5", "전화번호를 입력해주세요");
+			return Util.jsHistoryBack("전화번호를 입력해주세요");
 		}
 		if(Util.empty(email)) {
-			return ResultData.from("F-6", "이메일을 입력해주세요");
+			return Util.jsHistoryBack("이메일을 입력해주세요");
 		}
 		
 		ResultData<Member> doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		return doJoinRd;
+		return Util.jsReplace(doJoinRd.getMsg(), "login");
 	}
 	
 	@RequestMapping("/usr/member/login")
@@ -57,10 +58,12 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession session, String loginId, String loginPw){
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw){
 				
-		if (session.getAttribute("loginedMemberId") != null) {
-			return Util.jsHistoryBack("이미 로그인중입니다.");
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		if (rq.getLoginedMemberId() != 0) {
+			return Util.jsHistoryBack("로그아웃 후 이용해주세요.");
 		}
 	
 		if(Util.empty(loginId)) {
@@ -71,25 +74,27 @@ public class UsrMemberController {
 			return Util.jsHistoryBack("비밀번호를 입력해주세요.");
 		}
 		
-		Member loginedMember = memberService.getMemberByLoginId(loginId);
+		Member member = memberService.getMemberByLoginId(loginId);
 		
-		session.setAttribute("loginedMemberId", loginedMember.getId());
+		rq.login(member);
 		
-		return Util.jsReplace(loginedMember.getNickname() + " 님 로그인 되었습니다.", "../article/list");
+		return Util.jsReplace(Util.f("%s 님 로그인 하셨습니다.", member.getNickname()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession session, String loginId){
+	public String doLogout(HttpServletRequest req, int id){
 		
-		if(session.getAttribute("loginedMemberId") == null) {
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		if(rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("먼저 로그인 해주세요.");
 		}
 		
-		Member loginedMember = memberService.getMemberById((int) session.getAttribute("loginedMemberId"));
+		Member member = memberService.getMemberById(id);
 		
-		session.removeAttribute("loginedMemberId");
+		rq.logout();
 		
-		return Util.jsReplace(Util.f("%s 님 정상적으로 로그아웃 되었습니다.", loginedMember.getLoginId()), "../article/list");
+		return Util.jsReplace(Util.f("%s 님 정상적으로 로그아웃 되었습니다.", member.getNickname()), "/");
 	}
 }

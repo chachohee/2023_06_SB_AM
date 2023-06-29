@@ -26,8 +26,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**");
 		//모든 요청에 대해서 판단하겠다.
 		//resource 뺴고.
-		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doAdd").addPathPatterns("/usr/article/modify").addPathPatterns("/usr/article/doDelete").excludePathPatterns("/resource/**");
+		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doAdd").addPathPatterns("/usr/article/modify").addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/member/doLogout").excludePathPatterns("/resource/**");
 	}	
-	
-	
 }

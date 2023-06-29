@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +10,11 @@
 <!-- 노말라이즈, 라이브러리 -->
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
 <!-- 제이쿼리 불러오기 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <!-- 폰트어썸 불러오기 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 <link rel="stylesheet" href="/resource/common.css" />
 <title>${pageTitle }</title>
 </head>
@@ -20,13 +23,22 @@
 		<a class="px-3 flex items-center" href="/"><span>로고</span></a>
 		<div class="flex-grow"></div>
 		<ul class="flex">
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout">LOGOUT</a></li>
+			<li class="hover:underline"><a
+				class="h-full px-3 flex items-center" href="/">HOME</a></li>
+			<li class="hover:underline"><a
+				class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
+			<c:choose>
+				<c:when test="${rq.getLoginedMemberId() == 0}">
+					<li class="hover:underline"><a
+						class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+				</c:when>
+				<c:when test="${rq.getLoginedMemberId() != 0 }">
+					<li class="hover:underline"><a
+						class="h-full px-3 flex items-center" href="/usr/member/doLogout?id=${rq.getLoginedMemberId() }">LOGOUT</a></li>
+				</c:when>
+			</c:choose>
 		</ul>
 	</div>
-	
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
 			<h1>${pageTitle }&nbsp;Page</h1>
