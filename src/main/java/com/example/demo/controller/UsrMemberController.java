@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -52,23 +51,45 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String doLogin(HttpSession session, String loginId, String loginPw){
-		
+	public String login() {
 		return "usr/member/login";
+	}
+	
+	@RequestMapping("/usr/member/doLogin")
+	@ResponseBody
+	public String doLogin(HttpSession session, String loginId, String loginPw){
+				
+		if (session.getAttribute("loginedMemberId") != null) {
+			return Util.jsHistoryBack("이미 로그인중입니다.");
+		}
+	
+		if(Util.empty(loginId)) {
+			return Util.jsHistoryBack("아이디를 입력해주세요.");
+		}
+		
+		if(Util.empty(loginPw)) {
+			return Util.jsHistoryBack("비밀번호를 입력해주세요.");
+		}
+		
+		Member loginedMember = memberService.getMemberByLoginId(loginId);
+		
+		session.setAttribute("loginedMemberId", loginedMember.getId());
+		
+		return Util.jsReplace(loginedMember.getNickname() + " 님 로그인 되었습니다.", "../article/list");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession session, String loginId){
+	public String doLogout(HttpSession session, String loginId){
 		
 		if(session.getAttribute("loginedMemberId") == null) {
-			return ResultData.from("F-A", "이미 로그아웃 상태입니다.");
+			return Util.jsHistoryBack("먼저 로그인 해주세요.");
 		}
 		
 		Member loginedMember = memberService.getMemberById((int) session.getAttribute("loginedMemberId"));
 		
 		session.removeAttribute("loginedMemberId");
 		
-		return ResultData.from("S-1", Util.f("%s 님 정상적으로 로그아웃 되었습니다.", loginedMember.getLoginId()));
+		return Util.jsReplace(Util.f("%s 님 정상적으로 로그아웃 되었습니다.", loginedMember.getLoginId()), "../article/list");
 	}
 }

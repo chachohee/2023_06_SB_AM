@@ -55,8 +55,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model) {
 		
-		System.out.println("컨트롤러 실행됨?");
-
 		List<Article> articles = articleService.getArticles();
 
 		model.addAttribute("articles", articles);
@@ -87,10 +85,6 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("로그인 후 이용해주세요.");
 		}
 
-		if (Util.empty(id)) {
-			return Util.jsHistoryBack("삭제할 글 번호를 입력해주세요.");
-		}
-
 		Article foundArticle = articleService.getArticleById(id);
 
 		if (foundArticle == null) {
@@ -104,6 +98,16 @@ public class UsrArticleController {
 		articleService.deleteArticle(id);
 
 		return Util.jsReplace(Util.f("%d번 게시글을 삭제했습니다", id), "list");
+	}
+	
+	@RequestMapping("/usr/article/modify")
+	public String modify(HttpServletRequest req, Model model, int id) {
+		
+		Article article = articleService.getForPrintArticle(id);
+
+		model.addAttribute("article", article);
+		
+		return "usr/article/modify";
 	}
 
 	@RequestMapping("/usr/article/doModify")

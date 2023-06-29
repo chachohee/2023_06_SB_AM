@@ -62,6 +62,15 @@ email = 'test@gmail.com';
 
 INSERT INTO `member`
 SET updateDate = NOW(),
+loginId = 'test2',
+loginPw = 'test2',
+`name` = 'test2',
+nickname = 'tset2',
+cellphoneNum = '01012345678',
+email = 'test2@gmail.com';
+
+INSERT INTO `member`
+SET updateDate = NOW(),
 loginId = 'admin',
 loginPw = 'admin',
 authLevel = 3,
@@ -69,4 +78,3 @@ authLevel = 3,
 nickname = 'admin',
 cellphoneNum = '01012345678',
 email = 'admin@gmail.com';
-

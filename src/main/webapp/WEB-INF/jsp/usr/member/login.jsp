@@ -5,7 +5,7 @@
 <c:set var="pageTitle" value="Login" />
 <%@ include file="../common/head.jsp"%>
 
-<form action="login" method="post">
+<form action="doLogin" method="post">
 	<div class="container mx-auto">
 		<table border="1">
 			<tr>
