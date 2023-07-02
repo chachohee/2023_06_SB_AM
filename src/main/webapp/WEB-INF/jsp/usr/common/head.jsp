@@ -8,7 +8,9 @@
 <meta charset="UTF-8">
 <!-- 테일윈드 불러오기 -->
 <!-- 노말라이즈, 라이브러리 -->
-<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.7/dist/full.css"
+	rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 <!-- 제이쿼리 불러오기 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -22,22 +24,31 @@
 	<div class="h-20 flex container mx-auto text-4xl">
 		<a class="px-3 flex items-center" href="/"><span>로고</span></a>
 		<div class="flex-grow"></div>
-		<ul class="flex">
-			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/">HOME</a></li>
-			<li class="hover:underline"><a
-				class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
-			<c:choose>
-				<c:when test="${rq.getLoginedMemberId() == 0}">
-					<li class="hover:underline"><a
-						class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
-				</c:when>
-				<c:when test="${rq.getLoginedMemberId() != 0 }">
-					<li class="hover:underline"><a
-						class="h-full px-3 flex items-center" href="/usr/member/doLogout?id=${rq.getLoginedMemberId() }">LOGOUT</a></li>
-				</c:when>
-			</c:choose>
-		</ul>
+		<div class="flex dropdown dropdown-end">
+			<label class="swap swap-flip text-4xl"> <!-- this hidden checkbox controls the state -->
+				<input type="checkbox" />
+				<div class="swap-on">😈</div>
+				<div class="swap-off">😇</div>
+			</label>
+			<ul tabindex="0"
+				class="flex mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+				<li class="hover:underline"><a
+					class="h-full px-3 flex items-center" href="/">HOME</a></li>
+				<li class="hover:underline"><a
+					class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
+				<c:choose>
+					<c:when test="${rq.getLoginedMemberId() == 0}">
+						<li class="hover:underline"><a
+							class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+					</c:when>
+					<c:when test="${rq.getLoginedMemberId() != 0 }">
+						<li class="hover:underline"><a
+							class="h-full px-3 flex items-center"
+							href="/usr/member/doLogout?id=${rq.getLoginedMemberId() }">LOGOUT</a></li>
+					</c:when>
+				</c:choose>
+			</ul>
+		</div>
 	</div>
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">

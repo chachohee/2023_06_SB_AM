@@ -33,24 +33,24 @@
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title" value="${article.title }"/></td>
+						<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="title" value="${article.title }"/></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea name="body">${article.body }</textarea></td>
+						<td><textarea class="textarea textarea-primary" name="body">${article.body }</textarea></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
 						<td>
-							<input type="submit" value="수정" /> 
-							<input type="reset" value="다시입력" />
+							<input class="btn btn-outline" type="submit" value="수정" /> 
+							<input class="btn btn-outline" type="reset" value="다시입력" />
 						</td>
 					</tr>
 				</table>
 			</div>
 		</form>
 		<div>
-			<button class="btn-text-link" onclick="history.back();">뒤로가기</button>
+			<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

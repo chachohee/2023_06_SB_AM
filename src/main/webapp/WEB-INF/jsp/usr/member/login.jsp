@@ -7,24 +7,27 @@
 
 <div class="container mx-auto">
 	<form action="doLogin" method="post">
-		<table border="1">
+		<table style="margin: auto;" border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="loginId" placeholder="ID" /></td>
+				<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="loginId" placeholder="ID" /></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="loginPw"
+				<td><input class="input input-bordered input-primary w-full max-w-xs" type="password" name="loginPw"
 					placeholder="Password" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td><input type="submit" value="로그인" /> <input type="reset"
-					value="재입력" /></td>
+				<td>
+					<input class="btn btn-outline" type="submit" value="로그인" /> 
+					<input class="btn btn-outline" type="reset" value="다시입력" />
+				</td>
 			</tr>
 		</table>
 	</form>
+	<br>
+	<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 </div>
-<div class="container mx-auto">
-	<button class="btn-text-link" onclick="history.back();">뒤로가기</button>
-</div>
+
+<%@ include file="../common/foot.jsp"%>
