@@ -8,4 +8,6 @@
 	if(msg){
 		alert(msg);
 	}
+	
+	history.back();
 </script>

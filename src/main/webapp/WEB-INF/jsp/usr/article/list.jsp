@@ -30,6 +30,12 @@
 					</tbody>
 				</table>
 			</div>
+			<br>
+			<div style="margin-left: 93%;">
+				<c:if test="${loginedMemberId != null }">
+					<a class="btn btn-outline" href="write">글쓰기</a>
+				</c:if>
+			</div>
 		</div>
 	</section>
 	
