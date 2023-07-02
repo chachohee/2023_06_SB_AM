@@ -90,14 +90,21 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
-	public String modify(HttpServletRequest req, Model model, int id) {
+	public String showModify(HttpServletRequest req, Model model, int id) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(id);
 
+		if(article == null) {
+			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		if(rq.getLoginedMemberId() != article.getMemberId()) {
+			return rq.jsReturnOnView(Util.f("해당 게시물에 대한 권한이 없습니다."));
+		}
+		
 		model.addAttribute("article", article);
-		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/modify";
 	}

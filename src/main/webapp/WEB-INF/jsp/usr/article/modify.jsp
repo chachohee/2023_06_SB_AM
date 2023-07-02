@@ -8,8 +8,8 @@
 
 <section class="mt-8">
 	<div class="container mx-auto">
-		<form action="doModify?id=${article.id }" method="post">
-			<!--<input type="hidden" name="id" value=${article.id } />-->
+		<form action="doModify" method="post">
+			<input type="hidden" name="id" value=${article.id } />
 			<div class="table-box-type-1">
 				<table>
 					<colgroup>
@@ -33,16 +33,21 @@
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="textarea" name="title" placeholder="제목을 입력해주세요." /></td>
+						<td><input type="text" name="title" value="${article.title }"/></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><input type="textarea" name="body" placeholder="내용을 입력해주세요." /></td>
+						<td><textarea name="body">${article.body }</textarea></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+							<input type="submit" value="수정" /> 
+							<input type="reset" value="다시입력" />
+						</td>
 					</tr>
 				</table>
 			</div>
-			<input type="submit" value="수정" /> 
-			<input type="reset" value="다시입력" />
 		</form>
 		<div>
 			<button class="btn-text-link" onclick="history.back();">뒤로가기</button>
