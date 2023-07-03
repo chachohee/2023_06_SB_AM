@@ -18,12 +18,12 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 	
-	public List<Article> getArticles(){
-		return articleDao.getArticles();
+	public List<Article> getArticles(int boardId){
+		return articleDao.getArticles(boardId);
 	}
 	
-	public void writeArticle(int memberId, String title, String body) {
-		articleDao.writeArticle(memberId, title, body);
+	public void writeArticle(int memberId, int boardId, String title, String body) {
+		articleDao.writeArticle(memberId, boardId, title, body);
 	}
 	
 	public Article getArticleById(int id) {

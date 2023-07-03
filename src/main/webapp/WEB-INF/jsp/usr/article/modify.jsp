@@ -16,31 +16,31 @@
 						<col width="200" />
 					</colgroup>
 					<tr>
-						<td>글 번호</td>
+						<th>글 번호</th>
 						<td>${article.id }</td>
 					</tr>
 					<tr>
-						<td>작성자</td>
+						<th>작성자</th>
 						<td>${article.writerName }</td>
 					</tr>
 					<tr>
-						<td>작성일</td>
+						<th>작성일</th>
 						<td>${article.regDate }</td>
 					</tr>
 					<tr>
-						<td>수정일</td>
+						<th>수정일</th>
 						<td>${article.updateDate }</td>
 					</tr>
 					<tr>
-						<td>제목</td>
+						<th>제목</th>
 						<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="title" value="${article.title }"/></td>
 					</tr>
 					<tr>
-						<td>내용</td>
+						<th>내용</th>
 						<td><textarea class="textarea textarea-primary" name="body">${article.body }</textarea></td>
 					</tr>
 					<tr>
-						<td>&nbsp;</td>
+						<th>&nbsp;</th>
 						<td>
 							<input class="btn btn-outline" type="submit" value="수정" /> 
 							<input class="btn btn-outline" type="reset" value="다시입력" />

@@ -35,7 +35,11 @@
 				<li class="hover:underline"><a
 					class="h-full px-3 flex items-center" href="/">HOME</a></li>
 				<li class="hover:underline"><a
-					class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
+					class="h-full px-3 flex items-center"
+					href="/usr/article/list?boardId=1">NOTICE</a></li>
+				<li class="hover:underline"><a
+					class="h-full px-3 flex items-center"
+					href="/usr/article/list?boardId=2">FREE</a></li>
 				<c:choose>
 					<c:when test="${rq.getLoginedMemberId() == 0}">
 						<li class="hover:underline"><a
@@ -52,6 +56,6 @@
 	</div>
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
-			<h1>${pageTitle }&nbsp;Page</h1>
+			<h1>${pageTitle }</h1>
 		</div>
 	</section>

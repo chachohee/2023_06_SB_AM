@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.BoardService;
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
+import com.example.demo.vo.Board;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.Rq;
 
@@ -22,11 +24,13 @@ public class UsrArticleController {
 
 	private ArticleService articleService;
 	private MemberService memberService;
+	private BoardService boardService;
 
 	@Autowired
-	public UsrArticleController(ArticleService articleService, MemberService memberService) {
+	public UsrArticleController(ArticleService articleService, MemberService memberService, BoardService boardService) {
 		this.articleService = articleService;
 		this.memberService = memberService;
+		this.boardService = boardService;
 	}
 	
 	@RequestMapping("/usr/article/write")
@@ -47,7 +51,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body) {
+	public String doWrite(HttpServletRequest req, int boardId, String title, String body) {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 		
@@ -59,7 +63,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("내용을 입력해주세요.");
 		}
 
-		articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 
 		int id = articleService.getLastInsertId();
 
@@ -67,11 +71,14 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model) {
+	public String showList(Model model, int boardId) {
 		
-		List<Article> articles = articleService.getArticles();
+		Board board = boardService.getBoardById(boardId);
+		
+		List<Article> articles = articleService.getArticles(boardId);
 
 		model.addAttribute("articles", articles);
+		model.addAttribute("board", board);
 
 		return "usr/article/list";
 	}

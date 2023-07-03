@@ -15,19 +15,33 @@
 						<col width="200" />
 					</colgroup>
 					<tr>
-						<td>작성자</td>
+						<th>게시판</th>
+						<td>
+							<label>
+								<input type="radio" name="boardId" value="1" />
+								&nbsp;공지사항
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label>
+								<input type="radio" name="boardId" value="2" checked/>
+								&nbsp;자유
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<th>작성자</th>
 						<td>${member.nickname }</td>
 					</tr>
 					<tr>
-						<td>제목</td>
+						<th>제목</th>
 						<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="title" placeholder="제목을 입력해주세요."/></td>
 					</tr>
 					<tr>
-						<td>내용</td>
+						<th>내용</th>
 						<td><textarea class="textarea textarea-primary w-full max-w-xs" name="body" placeholder="내용을 입력해주세요."></textarea></td>
 					</tr>
 					<tr>
-						<td>&nbsp;</td>
+						<th>&nbsp;</th>
 						<td>
 							<input class="btn btn-outline" type="submit" value="등록" /> 
 							<input class="btn btn-outline" type="reset" value="다시입력" />
