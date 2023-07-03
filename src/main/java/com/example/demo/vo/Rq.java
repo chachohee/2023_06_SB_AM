@@ -23,7 +23,6 @@ public class Rq {
 		
 		this.req = req;
 		this.resp = resp;
-		
 		this.session = req.getSession();
 		
 		int loginedMemberId = 0;

@@ -15,7 +15,6 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Member;
-import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -31,15 +30,15 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite(HttpServletRequest req, Model model) {
+	public String write(HttpServletRequest req, Model model) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
-
-		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
 		if(rq.getLoginedMemberId() == 0) {
 			return  rq.jsReturnOnView(Util.f("게시물 작성 권한이 없습니다."));
 		}
+
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 		
 		model.addAttribute("member", member);
 		

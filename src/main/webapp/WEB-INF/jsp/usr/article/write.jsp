@@ -24,19 +24,19 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea class="textarea textarea-primary" name="body" placeholder="내용을 입력해주세요."></textarea></td>
+						<td><textarea class="textarea textarea-primary w-full max-w-xs" name="body" placeholder="내용을 입력해주세요."></textarea></td>
 					</tr>
 					<tr>
 						<td>&nbsp;</td>
 						<td>
-							<input class="btn btn-outline" type="submit" value="글 작성" /> 
+							<input class="btn btn-outline" type="submit" value="등록" /> 
 							<input class="btn btn-outline" type="reset" value="다시입력" />
 						</td>
 					</tr>
 				</table>
 			</div>
 		</form>
-		<div>
+		<div class="mt-2">
 			<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>

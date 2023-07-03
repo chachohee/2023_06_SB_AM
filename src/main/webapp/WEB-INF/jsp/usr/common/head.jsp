@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="synthwave">
 <head>
 <meta charset="UTF-8">
 <!-- 테일윈드 불러오기 -->
@@ -27,8 +27,8 @@
 		<div class="flex dropdown dropdown-end">
 			<label class="swap swap-flip text-4xl"> <!-- this hidden checkbox controls the state -->
 				<input type="checkbox" />
-				<div class="swap-on">😈</div>
-				<div class="swap-off">😇</div>
+				<div class="swap-on">★</div>
+				<div class="swap-off">☆</div>
 			</label>
 			<ul tabindex="0"
 				class="flex mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
