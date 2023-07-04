@@ -40,6 +40,13 @@
 			</if>
 			ORDER BY a.id DESC
 	</select>
+	
+	<select id="getArticlesCnt" resultType="int">
+		SELECT COUNT(*)
+			FROM article
+			WHERE boardId = #{boardId}
+	</select>
+	
 	<update id="modifyArticle">
 		UPDATE article
 			<set>
