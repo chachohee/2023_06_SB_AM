@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +15,12 @@ import com.example.demo.vo.Rq;
 public class UsrMemberController {
 	
 	private MemberService memberService;
+	private Rq rq;
 	
 	@Autowired
-	public UsrMemberController(MemberService memberService) {
+	public UsrMemberController(MemberService memberService, Rq rq) {
 		this.memberService = memberService;
+		this.rq = rq;
 	}
 	
 	@RequestMapping("/usr/member/doJoin")
@@ -58,10 +58,8 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req, String loginId, String loginPw){
+	public String doLogin(String loginId, String loginPw){
 				
-		Rq rq = (Rq) req.getAttribute("rq");
-		
 		if (rq.getLoginedMemberId() != 0) {
 			return Util.jsHistoryBack("로그아웃 후 이용해주세요.");
 		}
@@ -76,16 +74,14 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
-		rq.login(member);
+		this.rq.login(member);
 		
 		return Util.jsReplace(Util.f("%s 님 로그인 하셨습니다.", member.getNickname()), "/");
 	}
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req, int id){
-		
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doLogout(int id){
 		
 		if(rq.getLoginedMemberId() == 0) {
 			return Util.jsHistoryBack("먼저 로그인 해주세요.");
@@ -93,7 +89,7 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberById(id);
 		
-		rq.logout();
+		this.rq.logout();
 		
 		return Util.jsReplace(Util.f("%s 님 정상적으로 로그아웃 되었습니다.", member.getNickname()), "/");
 	}
