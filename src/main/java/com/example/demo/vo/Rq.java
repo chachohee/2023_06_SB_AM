@@ -15,6 +15,9 @@ public class Rq {
 	@Getter
 	private int loginedMemberId;
 	
+	@Getter
+	private int authLevel;
+	
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
@@ -26,12 +29,19 @@ public class Rq {
 		this.session = req.getSession();
 		
 		int loginedMemberId = 0;
+		int authLevel = 0;
 		
 		if(session.getAttribute("loginedMemberId") != null) {
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		
+		if(session.getAttribute("authLevel") != null) {
+			authLevel = (int) session.getAttribute("authLevel");
+			
+		}
+		
 		this.loginedMemberId = loginedMemberId;
+		this.authLevel = authLevel;
 		
 	}
 
@@ -53,10 +63,12 @@ public class Rq {
 
 	public void login(Member member) {
 		this.session.setAttribute("loginedMemberId", member.getId());
+		this.session.setAttribute("authLevel", member.getAuthLevel());
 	}
 
 	public void logout() {
 		this.session.removeAttribute("loginedMemberId");
+		this.session.removeAttribute("authLevel");
 	}
 
 	public String jsReturnOnView(String msg) {

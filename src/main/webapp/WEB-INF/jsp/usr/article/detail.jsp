@@ -39,9 +39,8 @@
 				</tr>
 			</table>
 		</div>
-		<br>
-		<div>
-			<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
+		<div class="mt-4">
+			<a class="btn btn-outline" href="list?boardId=${article.boardId }">목록</a>
 			<c:if test="${loginedMemberId == article.memberId }">
 				<a class="btn btn-outline" href="modify?id=${article.id }">수정</a>
 				<a class="btn btn-outline" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>

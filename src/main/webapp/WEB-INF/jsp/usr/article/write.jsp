@@ -17,10 +17,12 @@
 					<tr>
 						<th>게시판</th>
 						<td>
-							<label>
-								<input type="radio" name="boardId" value="1" />
-								&nbsp;공지사항
-							</label>
+							<c:if test="${rq.getAuthLevel() == 3 }">
+								<label>
+									<input type="radio" name="boardId" value="1" />
+									&nbsp;공지사항
+								</label>
+							</c:if>
 							&nbsp;&nbsp;&nbsp;
 							<label>
 								<input type="radio" name="boardId" value="2" checked/>
