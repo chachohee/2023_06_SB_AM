@@ -17,7 +17,7 @@ public interface ArticleDao {
 
 	public void deleteArticle(int id);
 
-	public List<Article> getArticles(int boardId);
+	public List<Article> getArticles(int boardId, int itemsInAPage, int limitStart);
 
 	public int getLastInsertId();
 

@@ -39,6 +39,7 @@
 				AND A.boardId = #{boardId}
 			</if>
 			ORDER BY a.id DESC
+			LIMIT #{limitStart}, #{itemsInAPage}
 	</select>
 	
 	<select id="getArticlesCnt" resultType="int">

@@ -40,7 +40,7 @@ CREATE TABLE board (
 
 TRUNCATE article;
 TRUNCATE `member`;
-TRUNCATE board; 
+TRUNCATE board;
 
 SELECT * FROM article;
 SELECT * FROM `member`;
@@ -67,6 +67,12 @@ memberId = 2,
 boardId = 2,
 title = '제목',
 `body` = '내용';
+-- INSERT INTO article
+-- (
+-- 	updateDate, memberId, boardId, title, `body`
+-- )
+-- SELECT NOW(), FLOOR(RAND() * 3) + 1, 2, CONCAT('제목_', RAND()), CONCAT('내_', RAND())
+-- FROM article;
 
 INSERT INTO `member`
 SET updateDate = NOW(),
@@ -90,7 +96,7 @@ SET updateDate = NOW(),
 loginId = 'test2',
 loginPw = 'test2',
 `name` = 'test2',
-nickname = 'tset2',
+nickname = 'test2',
 cellphoneNum = '01012345678',
 email = 'test2@gmail.com';
 

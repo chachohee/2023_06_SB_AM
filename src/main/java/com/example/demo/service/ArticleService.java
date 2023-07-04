@@ -18,8 +18,11 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 	
-	public List<Article> getArticles(int boardId){
-		return articleDao.getArticles(boardId);
+	public List<Article> getArticles(int boardId, int itemsInAPage, int page){
+		
+		int limitStart = (page - 1) * itemsInAPage;
+		
+		return articleDao.getArticles(boardId, itemsInAPage, limitStart);
 	}
 	
 	public void writeArticle(int memberId, int boardId, String title, String body) {
