@@ -34,9 +34,20 @@
 			FROM article AS a
 			INNER JOIN `member` AS m 
 			ON a.memberId = m.id
-			WHERE 1 = 1
-			<if test="boardId != 0">
-				AND A.boardId = #{boardId}
+			WHERE a.boardId = #{boardId}
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordType == 'title'">
+						AND a.title LIKE CONCAT('%', #{searchKeyword} ,'%')
+					</when>
+					<when test="searchKeywordType == 'body'">
+						AND a.body LIKE CONCAT('%', #{searchKeyword} ,'%')
+					</when>
+					<otherwise>
+						AND (a.title LIKE CONCAT('%', #{searchKeyword} ,'%')
+						OR a.body LIKE CONCAT('%', #{searchKeyword} ,'%'))
+					</otherwise>
+				</choose>
 			</if>
 			ORDER BY a.id DESC
 			LIMIT #{limitStart}, #{itemsInAPage}
@@ -46,6 +57,20 @@
 		SELECT COUNT(*)
 			FROM article
 			WHERE boardId = #{boardId}
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordType == 'title'">
+						AND title LIKE CONCAT('%', #{searchKeyword} ,'%')
+					</when>
+					<when test="searchKeywordType == 'body'">
+						AND body LIKE CONCAT('%', #{searchKeyword} ,'%')
+					</when>
+					<otherwise>
+						AND (title LIKE CONCAT('%', #{searchKeyword} ,'%')
+						OR body LIKE CONCAT('%', #{searchKeyword} ,'%'))
+					</otherwise>
+				</choose>
+			</if>
 	</select>
 	
 	<update id="modifyArticle">

@@ -18,11 +18,11 @@ public class ArticleService {
 		this.articleDao = articleDao;
 	}
 	
-	public List<Article> getArticles(int boardId, int itemsInAPage, int page){
+	public List<Article> getArticles(int boardId, String searchKeyword, String searchKeywordType, int itemsInAPage, int page){
 		
 		int limitStart = (page - 1) * itemsInAPage;
 		
-		return articleDao.getArticles(boardId, itemsInAPage, limitStart);
+		return articleDao.getArticles(boardId, searchKeyword, searchKeywordType, itemsInAPage, limitStart);
 	}
 	
 	public void writeArticle(int memberId, int boardId, String title, String body) {
@@ -49,7 +49,7 @@ public class ArticleService {
 		return articleDao.getForPrintArticle(id);
 	}
 
-	public int getArticlesCnt(int boardId) {
-		return articleDao.getArticlesCnt(boardId);
+	public int getArticlesCnt(int boardId, String searchKeyword, String searchKeywordType) {
+		return articleDao.getArticlesCnt(boardId, searchKeyword, searchKeywordType);
 	}
 }
