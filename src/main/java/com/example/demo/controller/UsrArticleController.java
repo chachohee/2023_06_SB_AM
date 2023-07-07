@@ -16,6 +16,7 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
 import com.example.demo.vo.Member;
+import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -107,6 +108,12 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
+		
+		ResultData increaseHitCntRd = articleService.increaseHitCnt(id);
+		
+		if(increaseHitCntRd.isFail()) {
+			return rq.jsReturnOnView(increaseHitCntRd.getMsg());
+		}
 		
 		Article article = articleService.getForPrintArticle(id);
 

@@ -73,6 +73,12 @@
 			</if>
 	</select>
 	
+	<update id="increaseHitCnt">
+		UPDATE article
+			SET hitCnt = hitCnt + 1
+			WHERE id = #{id}
+	</update>
+	
 	<update id="modifyArticle">
 		UPDATE article
 			<set>
@@ -86,6 +92,7 @@
 			</set>
 			WHERE id = #{id}
 	</update>
+	
 	<delete id="deleteArticle">
 		DELETE FROM article
 			WHERE id = #{id}
