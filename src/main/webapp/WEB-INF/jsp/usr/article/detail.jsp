@@ -6,6 +6,28 @@
 
 <%@ include file="../common/head.jsp"%>
 
+<script>
+	function ArticleDetail_increaseHitCnt(){
+		
+		$.get('doIncreaseHitCnt', {
+			id : ${article.id }
+		}, function(data){
+			console.log(data);
+			$('#articleDetail_increaseHitCnt').empty().html(data.data1);
+		}, 'json')
+	}
+	
+	/* ArticleDetail_increaseHitCnt(); */
+	
+	/* 비동기 확인하기 위해서 2초 늦게 나오도록 만든 함수 */
+	$(function(){
+		setTimeout(() => {
+			ArticleDetail_increaseHitCnt();
+		}, 2000);
+	})
+	
+</script>
+
 <section class="mt-8">
 	<div class="container mx-auto">
 		<div class="table-box-type-1">
@@ -19,7 +41,7 @@
 				</tr>
 				<tr>
 					<th>조회수</th>
-					<td>${article.hitCnt }</td>
+					<td><span id="articleDetail_increaseHitCnt">${article.hitCnt }</span></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
