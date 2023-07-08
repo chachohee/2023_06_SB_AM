@@ -9,12 +9,20 @@
 <script>
 	function ArticleDetail_increaseHitCnt(){
 		
+		const localStorageKey = 'article_[' + ${article.id} + ']_alreadyView';
+		
+		if(localStorage.getItem(localStorageKey)){
+			return;
+		}
+		
+		localStorage.setItem(localStorageKey, true);
+		
 		$.get('doIncreaseHitCnt', {
 			id : ${article.id }
 		}, function(data){
 			console.log(data);
 			$('#articleDetail_increaseHitCnt').empty().html(data.data1);
-		}, 'json')
+		}, 'json') 
 	}
 	
 	/* ArticleDetail_increaseHitCnt(); */
