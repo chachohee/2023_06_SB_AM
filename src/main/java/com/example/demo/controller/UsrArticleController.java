@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +20,6 @@ import com.example.demo.util.Util;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
 import com.example.demo.vo.Member;
-import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -105,26 +108,36 @@ public class UsrArticleController {
 		
 		return "usr/article/list";
 	}
-	
-	@RequestMapping("/usr/article/doIncreaseHitCnt")
-	@ResponseBody
-	public ResultData doIncreaseHitCnt(int id) {
-		
-		ResultData increaseHitCntRd = articleService.increaseHitCnt(id);
-		
-		if(increaseHitCntRd.isFail()) {
-			return increaseHitCntRd;
-		}
-		
-		ResultData rd = ResultData.from(increaseHitCntRd.getResultCode(), increaseHitCntRd.getMsg(), "hitCnt", articleService.getArticleHitCnt(id));
-		
-		rd.setData2("id", id);
-		
-		return rd;
-	}
 
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
+		
+		Cookie oldCookie = null;
+		Cookie[] cookies = req.getCookies();//세션은 하나의 객체이고, 쿠키는 받아왔을 때 하나가 아닐 수도 있기 때문에 배열로 받음.
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("hitCnt")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if(oldCookie != null) {
+			if(!oldCookie.getValue().contains("[" + id + "]")) {
+				articleService.increaseHitCnt(id);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(60 * 60 * 24);
+				resp.addCookie(oldCookie);
+			}
+		} else {
+			articleService.increaseHitCnt(id);
+			Cookie newCookie = new Cookie("hitCnt", "[" + id + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(60 * 60 * 24);
+			resp.addCookie(newCookie);
+		}
 		
 		Article article = articleService.getForPrintArticle(id);
 

@@ -27,5 +27,4 @@ public interface ArticleDao {
 
 	public int increaseHitCnt(int id);
 
-	public int getArticleHitCnt(int id);
 }

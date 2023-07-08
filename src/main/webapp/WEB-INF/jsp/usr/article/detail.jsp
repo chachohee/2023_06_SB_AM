@@ -6,36 +6,6 @@
 
 <%@ include file="../common/head.jsp"%>
 
-<script>
-	function ArticleDetail_increaseHitCnt(){
-		
-		const localStorageKey = 'article_[' + ${article.id} + ']_alreadyView';
-		
-		if(localStorage.getItem(localStorageKey)){
-			return;
-		}
-		
-		localStorage.setItem(localStorageKey, true);
-		
-		$.get('doIncreaseHitCnt', {
-			id : ${article.id }
-		}, function(data){
-			console.log(data);
-			$('#articleDetail_increaseHitCnt').empty().html(data.data1);
-		}, 'json') 
-	}
-	
-	/* ArticleDetail_increaseHitCnt(); */
-	
-	/* 비동기 확인하기 위해서 2초 늦게 나오도록 만든 함수 */
-	$(function(){
-		setTimeout(() => {
-			ArticleDetail_increaseHitCnt();
-		}, 2000);
-	})
-	
-</script>
-
 <section class="mt-8">
 	<div class="container mx-auto">
 		<div class="table-box-type-1">
