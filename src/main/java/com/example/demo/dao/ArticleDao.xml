@@ -23,13 +23,17 @@
 	</select>
 
 	<select id="getForPrintArticle" resultType="Article">
-		SELECT a.*, m.name AS
-		writerName
+		SELECT a.*
+			, m.name AS writerName
+			, SUM(IF(RP.point &gt; 0, RP.point, 0)) AS goodReactionPoint
+			, SUM(IF(RP.point &lt; 0, RP.point, 0)) AS badReactionPoint
 		FROM article AS a
 		INNER JOIN `member` AS m
-		ON a.memberId =
-		m.id
+		ON a.memberId = m.id
+		LEFT JOIN reactionPoint AS rp
+		ON a.id = rp.relId
 		WHERE a.id = #{id}
+		GROUP BY a.id
 	</select>
 
 	<select id="getArticles" resultType="Article">

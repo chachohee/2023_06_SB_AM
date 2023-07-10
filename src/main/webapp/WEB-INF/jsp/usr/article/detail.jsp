@@ -6,6 +6,15 @@
 
 <%@ include file="../common/head.jsp"%>
 
+<script>
+	function checkLogin(this){
+		if(this == 0){
+			alert('로그인 먼저 해주세요!');
+			history.back();
+		}
+	}
+</script>
+
 <section class="mt-8">
 	<div class="container mx-auto">
 		<div class="table-box-type-1">
@@ -15,31 +24,36 @@
 				</colgroup>
 				<tr>
 					<th>글 번호</th>
-					<td>${article.id }</td>
+					<td colspan="2">${article.id }</td>
 				</tr>
 				<tr>
 					<th>조회수</th>
-					<td><span id="articleDetail_increaseHitCnt">${article.hitCnt }</span></td>
+					<td colspan="2"><span id="articleDetail_increaseHitCnt">${article.hitCnt }</span></td>
+				</tr>
+				<tr>
+					<th>추천</th>
+					<td><a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👍</a><span class="ml-3">좋아요: ${article.goodReactionPoint }</span></td>
+					<td><a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👎</a><span class="ml-3">싫어요: ${article.badReactionPoint }</span></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${article.writerName }</td>
+					<td colspan="2">${article.writerName }</td>
 				</tr>
 				<tr>
 					<th>작성일</th>
-					<td>${article.regDate }</td>
+					<td colspan="2">${article.regDate }</td>
 				</tr>
 				<tr>
 					<th>수정일</th>
-					<td>${article.updateDate }</td>
+					<td colspan="2">${article.updateDate }</td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td>${article.title }</td>
+					<td colspan="2">${article.title }</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>${article.body }</td>
+					<td colspan="2">${article.body }</td>
 				</tr>
 			</table>
 		</div>
