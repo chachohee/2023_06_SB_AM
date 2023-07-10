@@ -33,6 +33,7 @@
 				<thead>
 					<tr>
 						<th>번호</th>
+						<th>추천</th>
 						<th>작성일</th>
 						<th>제목</th>
 						<th>작성자</th>
@@ -42,6 +43,7 @@
 					<c:forEach var="article" items="${articles }">
 						<tr>
 							<td>${article.id }</td>
+							<td>${article.sumReactionPoint }</td>
 							<td>${article.regDate.substring(2, 16) }</td>
 							<td><a class="hover:underline"
 								href="detail?id=${article.id }">${article.title }</a></td>

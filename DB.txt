@@ -38,6 +38,16 @@ CREATE TABLE board (
 	delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
+CREATE TABLE reactionPoint (
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL DEFAULT NOW(),
+	updateDate DATETIME NOT NULL,
+	memberId INT UNSIGNED NOT NULL,
+	relTypeCode VARCHAR(20) COMMENT '관련 데이터 타입 코드',
+	relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+	`point` INT NOT NULL DEFAULT 0 
+);
+
 TRUNCATE article;
 TRUNCATE `member`;
 TRUNCATE board;
@@ -45,6 +55,7 @@ TRUNCATE board;
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
+SELECT * FROM reactionPoint;
 
 SELECT LAST_INSERT_ID();
 SELECT * FROM `member` WHERE loginId = '아이디';
@@ -108,3 +119,18 @@ INSERT INTO board
 SET updateDate = NOW(),
 `code` = 'free',
 `name` = '자유';
+
+-- 3번 회원이 4번 글에 싫어요
+INSERT INTO reactionPoint
+SET updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 4,
+`point` = -1;
+-- 2번 회원이 1번 글에 좋아요
+INSERT INTO reactionPoint
+SET updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
