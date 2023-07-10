@@ -76,7 +76,7 @@
 				<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page - pageMenuLen : 1 }" />
 				<c:set var="endPage" value="${page + pageMenuLen <= pagesCnt ? page + pageMenuLen : pagesCnt }" />
 				
-				<c:set var="pageBaseUri" value="?boardId=${board.id }&page=${i }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }"/>
+				<c:set var="pageBaseUri" value="?boardId=${board.id }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }"/>
 				
 				<c:if test="${page == 1 }">
 					<a class="join-item btn btn-disabled">«</a>
@@ -89,7 +89,7 @@
 				</c:if>
 				
 				<c:forEach begin="${startPage }" end="${endPage }" var="i">
-					<a class="join-item btn ${page == i ? 'btn-active' : '' }" href="${pageBaseUri }">${i }</a>
+					<a class="join-item btn ${page == i ? 'btn-active' : '' }" href="${pageBaseUri }&page=${i }">${i }</a>
 				</c:forEach>
 				
 				<c:if test="${page < pagesCnt }">
