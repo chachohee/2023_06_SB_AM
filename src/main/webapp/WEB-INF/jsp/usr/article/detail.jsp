@@ -14,6 +14,15 @@
 		}, function(data){
 			console.log(data);
 			console.log(data.data1.sumReactionPoint);
+			
+			if (data.data1.sumReactionPoint > 0){
+				let goodBtn = $('#goodBtn');
+				goodBtn.removeClass('btn-outline');
+			} else if (data.data1.sumReactionPoint < 0){
+				let badBtn = $('#goodBtn');
+				badBtn.removeClass('btn-outline');
+			}
+			
 		}, 'json')
 	}
 	getReactionPoint();
@@ -38,13 +47,13 @@
 					<th>추천</th>
 					<td>
 						<c:if test="${rq.getLoginedMemberId() != 0 }">
-							<a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👍</a>
+							<a id="goodBtn" class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👍</a>
 						</c:if>
 						<span class="ml-3">좋아요: ${article.goodReactionPoint }</span>
 					</td>
 					<td>
 						<c:if test="${rq.getLoginedMemberId() != 0 }">
-							<a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👎</a>
+							<a id="badBtn" class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👎</a>
 						</c:if>
 						<span class="ml-3">싫어요: ${article.badReactionPoint }</span>
 					</td>
