@@ -7,12 +7,15 @@
 <%@ include file="../common/head.jsp"%>
 
 <script>
-	function checkLogin(this){
-		if(this == 0){
-			alert('로그인 먼저 해주세요!');
-			history.back();
-		}
+	function getReactionPoint(){
+		$.get('../reactionPoint/getReactionPoint',{
+			relTypeCode : 'article',
+			relId : ${article.id }
+		}, function(data){
+			console.log(data);
+		}, 'json')
 	}
+	getReactionPoint();
 </script>
 
 <section class="mt-8">
@@ -32,8 +35,18 @@
 				</tr>
 				<tr>
 					<th>추천</th>
-					<td><a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👍</a><span class="ml-3">좋아요: ${article.goodReactionPoint }</span></td>
-					<td><a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👎</a><span class="ml-3">싫어요: ${article.badReactionPoint }</span></td>
+					<td>
+						<c:if test="${rq.getLoginedMemberId() != 0 }">
+							<a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👍</a>
+						</c:if>
+						<span class="ml-3">좋아요: ${article.goodReactionPoint }</span>
+					</td>
+					<td>
+						<c:if test="${rq.getLoginedMemberId() != 0 }">
+							<a class="btn btn-outline btn-error" href="#" onclick="checkLogin(${loginedMemberId})">👎</a>
+						</c:if>
+						<span class="ml-3">싫어요: ${article.badReactionPoint }</span>
+					</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
