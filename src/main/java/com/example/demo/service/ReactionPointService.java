@@ -20,4 +20,8 @@ public class ReactionPointService {
 		return reactionPointDao.getReactionPoint(loginedMemberId, relTypeCode, relId);
 	}
 
+	public void doInsertReactionPoint(int loginedMemberId, String relTypeCode, int relId, int point) {
+		reactionPointDao.doInsertReactionPoint(loginedMemberId, relTypeCode, relId, point);
+	}
+
 }

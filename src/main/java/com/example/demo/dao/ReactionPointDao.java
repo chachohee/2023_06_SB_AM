@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,5 +17,15 @@ public interface ReactionPointDao {
 					AND relId = #{relId}
 			""")
 	ReactionPoint getReactionPoint(int loginedMemberId, String relTypeCode, int relId);
+
+	@Insert("""
+			INSERT INTO reactionPoint
+				SET updateDate = NOW()
+					, memberId = #{loginedMemberId}
+					, relTypeCode = #{relTypeCode}
+					, relId = #{relId}
+					, `point` = #{point}
+			""")
+	void doInsertReactionPoint(int loginedMemberId, String relTypeCode, int relId, int point);
 
 }
