@@ -13,6 +13,7 @@
 			relId : ${article.id }
 		}, function(data){
 			console.log(data);
+			console.log(data.data1.sumReactionPoint);
 		}, 'json')
 	}
 	getReactionPoint();

@@ -9,7 +9,7 @@ import com.example.demo.vo.ReactionPoint;
 public interface ReactionPointDao {
 
 	@Select("""
-				SELECT *
+				SELECT IFNULL(SUM(`point`), 0) AS sumReactionPoint
 					FROM reactionPoint
 					WHERE memberId = #{loginedMemberId}
 					AND relTypeCode = #{relTypeCode}
