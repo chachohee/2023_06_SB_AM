@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -27,5 +28,13 @@ public interface ReactionPointDao {
 					, `point` = #{point}
 			""")
 	void doInsertReactionPoint(int loginedMemberId, String relTypeCode, int relId, int point);
+
+	@Delete("""
+			DELETE FROM reactionPoint
+				WHERE memberId = #{loginedMemberId}
+				AND relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+			""")
+	void doDeleteReactionPoint(int loginedMemberId, String relTypeCode, int relId);
 
 }
