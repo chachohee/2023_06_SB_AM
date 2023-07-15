@@ -36,11 +36,11 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="title" placeholder="제목을 입력해주세요."/></td>
+						<td><input class="input input-bordered input-primary w-full" type="text" name="title" placeholder="제목을 입력해주세요."/></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea class="textarea textarea-primary w-full max-w-xs" name="body" placeholder="내용을 입력해주세요."></textarea></td>
+						<td><textarea class="textarea textarea-primary w-full" name="body" placeholder="내용을 입력해주세요."></textarea></td>
 					</tr>
 					<tr>
 						<th>&nbsp;</th>

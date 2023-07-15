@@ -88,11 +88,19 @@
 					onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
 		</div>
-		<!-- reply -->
-		<!-- 반복문 돌려서 댓글 목록 나오도록 -->
-		<div class="mt-4">
-			<a href="../reply/replyWrite">댓글 쓰기</a>
-		</div>
+	</div>
+</section>
+
+<section class="mt-8">
+	<div class="container mx-auto px-3">
+		<h1>댓글</h1>
+		<form action="../reply/doWrite" method="post">
+			<div class="mt-4 border border-white-400 rounded-lg p-4">
+				<div class="mb-2"><span>닉네임</span></div>
+				<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 남겨보세요."></textarea>
+				<div class="mt-2 flex justify-end"><button class="btn btn-outline btn-sm">등록</button></div>
+			</div>
+		</form>
 	</div>
 </section>
 
