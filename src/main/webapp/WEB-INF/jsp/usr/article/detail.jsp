@@ -33,7 +33,7 @@
 </script>
 
 <section class="mt-8">
-	<div class="container mx-auto">
+	<div class="container mx-auto pb-4 border-bottom-line">
 		<div class="table-box-type-1">
 			<table>
 				<colgroup>
@@ -76,31 +76,53 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td colspan="2">${article.body }</td>
+					<td colspan="2">${article.getForPrintBody()}</td>
 				</tr>
 			</table>
 		</div>
 		<div class="mt-4">
-			<a class="btn btn-outline" href="list?boardId=${article.boardId }">목록</a>
+			<a class="btn btn-outline btn-sm"
+				href="list?boardId=${article.boardId }">목록</a>
 			<c:if test="${loginedMemberId == article.memberId }">
-				<a class="btn btn-outline" href="modify?id=${article.id }">수정</a>
-				<a class="btn btn-outline" href="doDelete?id=${article.id }"
+				<a class="btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
+				<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }"
 					onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
 		</div>
 	</div>
 </section>
-
-<section class="mt-8">
+<section class="my-8">
 	<div class="container mx-auto px-3">
 		<h1>댓글</h1>
-		<form action="../reply/doWrite" method="post">
-			<div class="mt-4 border border-white-400 rounded-lg p-4">
-				<div class="mb-2"><span>닉네임</span></div>
-				<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 남겨보세요."></textarea>
-				<div class="mt-2 flex justify-end"><button class="btn btn-outline btn-sm">등록</button></div>
+		<c:if test="${rq.loginedMemberId != 0 }">
+			<form action="../reply/doWrite" method="post">
+				<input type="hidden" name="relTypeCode" value="article" /> <input
+					type="hidden" name="relId" value="${article.id }" />
+				<div class="mt-4 border border-white-400 rounded-lg p-4">
+					<div class="mb-2">
+						<span>${rq.loginedMember.nickname }</span>
+					</div>
+					<textarea class="textarea textarea-bordered w-full" name="body"
+						placeholder="댓글을 남겨보세요."></textarea>
+					<div class="mt-2 flex justify-end">
+						<button class="btn btn-outline btn-sm">등록</button>
+					</div>
+				</div>
+			</form>
+		</c:if>
+		<c:forEach var="reply" items="${replies }">
+			<div class="my-4 py-2 pl-16 border-bottom-line">
+				<div class="text-sm">
+					<span>${reply.writerName }</span>
+				</div>
+				<div class="pl-4">
+					<span>${reply.getForPrintBody() }</span>
+				</div>
+				<div class="text-xs text-gray-400">
+					<span>${reply.regDate }</span>
+				</div>
 			</div>
-		</form>
+		</c:forEach>
 	</div>
 </section>
 

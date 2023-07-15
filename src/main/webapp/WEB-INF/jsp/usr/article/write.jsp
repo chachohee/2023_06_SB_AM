@@ -17,7 +17,7 @@
 					<tr>
 						<th>게시판</th>
 						<td>
-							<c:if test="${rq.getAuthLevel() == 3 }">
+							<c:if test="${rq.loginedMember.authLevel == 3 }">
 								<label>
 									<input type="radio" name="boardId" value="1" />
 									&nbsp;공지사항

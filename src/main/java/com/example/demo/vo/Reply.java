@@ -5,26 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Article {
+@NoArgsConstructor
+public class Reply {
 	private int id;
 	private String regDate;
 	private String updateDate;
 	private int memberId;
-	private int boardId;
-	private String writerName;
-	private String title;
+	private String relTypeCode;
+	private int relId;
 	private String body;
-	private int hitCnt;
-	private int sumReactionPoint;
-	private int goodReactionPoint;
-	private int badReactionPoint;
-	
-	private boolean actorCanChangeData;
-	
+	private String writerName;
+
+	//줄바꿈을 위한 처리.
 	public String getForPrintBody() {
 		return this.body.replaceAll("\n", "<br />");
 	}
-
 }

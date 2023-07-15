@@ -20,14 +20,14 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input class="btn btn-outline" type="submit" value="로그인" /> 
-					<input class="btn btn-outline" type="reset" value="다시입력" />
+					<input class="btn btn-outline btn-sm" type="submit" value="로그인" /> 
+					<input class="btn btn-outline btn-sm" type="reset" value="다시입력" />
 				</td>
 			</tr>
 		</table>
 	</form>
 	<br>
-	<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
+	<button class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
 </div>
 
 <%@ include file="../common/foot.jsp"%>

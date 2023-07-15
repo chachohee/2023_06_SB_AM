@@ -56,7 +56,7 @@
 		<c:if test="${rq.getLoginedMemberId() != 0 }">
 			<c:choose>
 				<c:when test="${board.id == 1 }">
-					<c:if test="${rq.getAuthLevel() == 3 }">
+					<c:if test="${rq.loginedMember.authLevel == 3 }">
 						<div class="mt-4 flex justify-end">
 							<a class="btn btn-outline" href="write">글쓰기</a>
 						</div>
