@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Reply;
 
@@ -44,5 +45,12 @@ public interface ReplyDao {
 				WHERE id = #{id}
 			""")
 	void deleteReply(int id);
+
+	@Update("""
+			UPDATE reply
+				SET `body` = #{body}
+				WHERE id = #{id}
+			""")
+	void modifyReply(int id, String body);
 
 }

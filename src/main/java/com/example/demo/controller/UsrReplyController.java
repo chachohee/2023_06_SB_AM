@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
 import com.example.demo.vo.Reply;
+import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -38,11 +39,38 @@ public class UsrReplyController {
 		Reply reply = replyService.getReply(id);
 		
 		if(reply.getMemberId() != rq.getLoginedMemberId()) {
-			return Util.jsHistoryBack("댓글 삭제 권한이 없습니다");
+			return Util.jsHistoryBack("해당 댓글에 대한 권한이 없습니다");
 		}
 		
 		replyService.deleteReply(id);
 		
 		return Util.jsReplace("댓글 삭제 성공", Util.f("../article/detail?id=%d", reply.getRelId()));
+	}
+	
+	@RequestMapping("usr/reply/getReplyContent")
+	@ResponseBody
+	public ResultData<Reply> getReplyContent(int id) {
+		
+		Reply reply = replyService.getReply(id);
+		
+		if(reply == null) {
+			return  ResultData.from("F-1", "해당 댓글은 존재하지 않습니다.");
+		}
+		
+		return ResultData.from("S-1", "댓글 정보 조회 성공", "reply", reply);
+	}
+	
+	@RequestMapping("usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body) {
+		Reply reply = replyService.getReply(id);
+		
+		if(reply.getMemberId() != rq.getLoginedMemberId()) {
+			return Util.jsHistoryBack("해당 댓글에 대한 권한이 없습니다");
+		}
+		
+		replyService.modifyReply(id, body);
+		
+		return Util.jsReplace("댓글 수정 성공", Util.f("../article/detail?id=%d", reply.getRelId()));
 	}
 }
