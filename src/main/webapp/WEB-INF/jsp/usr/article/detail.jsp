@@ -91,6 +91,13 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	function replyModify_getForm(){
+		$('#')
+	}
+</script>
+
 <section class="my-8">
 	<div class="container mx-auto px-3">
 		<h1>댓글</h1>
@@ -110,10 +117,26 @@
 				</div>
 			</form>
 		</c:if>
-		<c:forEach var="reply" items="${replies }">
-			<div class="my-4 py-2 pl-16 border-bottom-line">
-				<div class="text-sm">
-					<span>${reply.writerName }</span>
+		<c:forEach var="reply" items="${replies }" varStatus="">
+			<div class="py-2 pl-16 border-bottom-line">
+				<div class="flex justify-between items-end text-sm">
+					<div class="font-semibold"><span>${reply.writerName }</span></div>
+					<c:if test="${rq.getLoginedMemberId() == reply.memberId }">
+						<div class="dropdown">
+						<button class="btn btn-square btn-ghost btn-sm mr-10">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+								viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
+								<path stroke-linecap="round" stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+						</button>
+						<ul tabindex="0"
+							class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-18">
+							<li><a onclick="replyModify_getForm();">수정</a></li>
+							<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
+						</ul>
+					</div>
+					</c:if>
 				</div>
 				<div class="pl-4">
 					<span>${reply.getForPrintBody() }</span>

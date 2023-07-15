@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.Util;
+import com.example.demo.vo.Reply;
 import com.example.demo.vo.Rq;
 
 @Controller
@@ -26,6 +27,22 @@ public class UsrReplyController {
 	public String doWrite(String relTypeCode, int relId, String body) {
 		
 		replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
+		
 		return Util.jsReplace("댓글 작성 완료", Util.f("../article/detail?id=%d", relId));
+	}
+	
+	@RequestMapping("usr/reply/doDelete")
+	@ResponseBody
+	public String doDelete(int id) {
+		
+		Reply reply = replyService.getReply(id);
+		
+		if(reply.getMemberId() != rq.getLoginedMemberId()) {
+			return Util.jsHistoryBack("댓글 삭제 권한이 없습니다");
+		}
+		
+		replyService.deleteReply(id);
+		
+		return Util.jsReplace("댓글 삭제 성공", Util.f("../article/detail?id=%d", reply.getRelId()));
 	}
 }

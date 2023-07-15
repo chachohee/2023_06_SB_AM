@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -30,5 +31,18 @@ public interface ReplyDao {
 				AND relId = #{relId}
 			""")
 	List<Reply> getReplies(String relTypeCode, int relId);
+
+	@Select("""
+			SELECT *
+				FROM reply
+				WHERE id = #{id}
+			""")
+	Reply getReply(int id);
+
+	@Delete("""
+			DELETE FROM reply
+				WHERE id = #{id}
+			""")
+	void deleteReply(int id);
 
 }
