@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS SB_AM;
 CREATE DATABASE SB_AM;
 USE SB_AM;
 
+-- 테이블 생성
 CREATE TABLE article(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL DEFAULT NOW(),
@@ -48,14 +49,28 @@ CREATE TABLE reactionPoint (
 	`point` INT NOT NULL DEFAULT 0 
 );
 
+CREATE TABLE reply (
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL DEFAULT NOW(),
+	updateDate DATETIME NOT NULL,
+	memberId INT UNSIGNED NOT NULL,
+	relTypeCode VARCHAR(20) COMMENT '관련 데이터 타입 코드',
+	relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+	`body` TEXT NOT NULL
+);
+
 TRUNCATE article;
 TRUNCATE `member`;
 TRUNCATE board;
+TRUNCATE reactionPoint;
+TRUNCATE reply;
 
+-- 테이블 조회
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
 SELECT * FROM reactionPoint;
+SELECT * FROM reply;
 
 SELECT LAST_INSERT_ID();
 SELECT * FROM `member` WHERE loginId = '아이디';
@@ -112,6 +127,26 @@ SELECT AM.*
 	GROUP BY AM.id 
 	ORDER BY AM.id DESC;
 
+SELECT * FROM reactionPoint;
+SELECT *
+	FROM reactionPoint
+	WHERE memberId = 1
+	AND relTypeCode = 'article'
+	AND relId = 11;
+SELECT IFNULL(SUM(`point`), 0) AS sumReactionPoint
+ 	, SUM(IF(`point` > 0, `point`, 0 )) AS goodReactionPoint
+ 	, SUM(IF(`point` < 0, `point`, 0 )) AS badReactionPoint
+	FROM reactionPoint
+	WHERE memberId = 3
+	AND relTypeCode = 'article'
+	AND relId = 5;
+SELECT IFNULL(SUM(`point`), 0) AS sumReactionPoint
+	FROM reactionPoint
+	WHERE memberId = 2
+	AND relTypeCode = 'article'
+	AND relId = 5;
+
+-- 데이터 추가
 INSERT INTO article
 SET updateDate = NOW(),
 memberId = 1,
@@ -140,26 +175,26 @@ title = '제목',
 INSERT INTO `member`
 SET updateDate = NOW(),
 loginId = 'admin',
-loginPw = 'admin',
+loginPw = '1234',
 authLevel = 3,
-`name` = 'admin',
-nickname = 'admin',
+`name` = '관리자',
+nickname = '관리자닉네임',
 cellphoneNum = '01012345678',
 email = 'admin@gmail.com';
 INSERT INTO `member`
 SET updateDate = NOW(),
-loginId = 'test',
-loginPw = 'test',
-`name` = 'test',
-nickname = 'test',
+loginId = 'test1',
+loginPw = '1234',
+`name` = '회원1',
+nickname = '회원1닉네임',
 cellphoneNum = '01012345678',
-email = 'test@gmail.com';
+email = 'test1@gmail.com';
 INSERT INTO `member`
 SET updateDate = NOW(),
 loginId = 'test2',
-loginPw = 'test2',
-`name` = 'test2',
-nickname = 'test2',
+loginPw = '1234',
+`name` = '회원2',
+nickname = '회원2닉네임',
 cellphoneNum = '01012345678',
 email = 'test2@gmail.com';
 
@@ -179,10 +214,16 @@ memberId = 3,
 relTypeCode = 'article',
 relId = 4,
 `point` = -1;
--- 2번 회원이 1번 글에 좋아요
-INSERT INTO reactionPoint
+
+INSERT INTO reply
 SET updateDate = NOW(),
-memberId = 1,
+memberId = 2,
 relTypeCode = 'article',
-relId = 11,
-`point` = 1;
+relId = 2,
+`body` = '댓글1';
+INSERT INTO reply
+SET updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`body` = '댓글2';

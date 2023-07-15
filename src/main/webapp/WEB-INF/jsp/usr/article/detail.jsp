@@ -8,12 +8,14 @@
 
 <script>
 	function getReactionPoint(){
-		$.get('../reactionPoint/getReactionPoint',{
+		
+		$.get('../reactionPoint/getReactionPoint', {
 			relTypeCode : 'article',
 			relId : ${article.id }
 		}, function(data){
-			console.log(data);
-			console.log(data.data1.sumReactionPoint);
+		
+		console.log(data);
+		console.log(data.data1.sumReactionPoint);
 			
 			if (data.data1.sumReactionPoint > 0){
 				let goodBtn = $('#goodBtn');
@@ -47,18 +49,14 @@
 				</tr>
 				<tr>
 					<th>추천</th>
-					<td>
-						<c:if test="${rq.getLoginedMemberId() != 0 }">
-							<a id="goodBtn" class="btn btn-outline btn-error" href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=1">👍</a>
-						</c:if>
-						<span class="ml-3">좋아요: ${article.goodReactionPoint }</span>
-					</td>
-					<td>
-						<c:if test="${rq.getLoginedMemberId() != 0 }">
-							<a id="badBtn" class="btn btn-outline btn-error" href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=-1">👎</a>
-						</c:if>
-						<span class="ml-3">싫어요: ${article.badReactionPoint }</span>
-					</td>
+					<td><c:if test="${rq.getLoginedMemberId() != 0 }">
+							<a id="goodBtn" class="btn btn-outline btn-error"
+								href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=1">👍</a>
+						</c:if> <span class="ml-3">좋아요: ${article.goodReactionPoint }</span></td>
+					<td><c:if test="${rq.getLoginedMemberId() != 0 }">
+							<a id="badBtn" class="btn btn-outline btn-error"
+								href="../reactionPoint/doInsertReactionPoint?relTypeCode=article&relId=${article.id }&point=-1">👎</a>
+						</c:if> <span class="ml-3">싫어요: ${article.badReactionPoint }</span></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
@@ -86,8 +84,14 @@
 			<a class="btn btn-outline" href="list?boardId=${article.boardId }">목록</a>
 			<c:if test="${loginedMemberId == article.memberId }">
 				<a class="btn btn-outline" href="modify?id=${article.id }">수정</a>
-				<a class="btn btn-outline" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
+				<a class="btn btn-outline" href="doDelete?id=${article.id }"
+					onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
 			</c:if>
+		</div>
+		<!-- reply -->
+		<!-- 반복문 돌려서 댓글 목록 나오도록 -->
+		<div class="mt-4">
+			<a href="../reply/replyWrite">댓글 쓰기</a>
 		</div>
 	</div>
 </section>
