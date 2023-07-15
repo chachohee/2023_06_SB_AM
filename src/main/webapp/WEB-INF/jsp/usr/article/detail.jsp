@@ -118,7 +118,7 @@
 						<div class="mb-2">
 							<span>${rq.loginedMember.nickname }</span>
 						</div>
-						<textarea class="textarea textarea-bordered w-full" name="body">\${data.data1.body}</textarea>
+						<textarea class="textarea textarea-primary w-full" name="body">\${data.data1.body}</textarea>
 						<div class="mt-2 flex justify-end">
 							<a class="btn btn-outline btn-sm mr-2" onclick="replyModify_cancel(\${i});">취소</a>
 							<button class="btn btn-outline btn-sm">수정</button>
@@ -148,11 +148,11 @@
 			<form action="../reply/doWrite" method="post">
 				<input type="hidden" name="relTypeCode" value="article" /> <input
 					type="hidden" name="relId" value="${article.id }" />
-				<div class="mt-4 border border-white-400 rounded-lg p-4">
+				<div class="mt-4 border border-gray-400 rounded-lg p-4">
 					<div class="mb-2">
 						<span>${rq.loginedMember.nickname }</span>
 					</div>
-					<textarea class="textarea textarea-bordered w-full" name="body"
+					<textarea class="textarea textarea-primary w-full" name="body"
 						placeholder="댓글을 남겨보세요."></textarea>
 					<div class="mt-2 flex justify-end">
 						<button class="btn btn-outline btn-sm">등록</button>
