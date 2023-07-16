@@ -62,4 +62,13 @@ public ResultData<Member> doJoin(String loginId, String loginPw, String name, St
 	public int getLastInsertId() {
 		return memberDao.getLastInsertId();
 	}
+
+	public void doModify(int loginedMemberId, String nickname, String cellphoneNum, String email) {
+		memberDao.doModify(loginedMemberId, nickname, cellphoneNum, email);
+	}
+
+	public void doPasswordModify(int loginedMemberId, String loginPw) {
+		memberDao.doPasswordModify(loginedMemberId, loginPw);
+		
+	}
 }

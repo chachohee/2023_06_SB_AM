@@ -52,7 +52,7 @@
 				</table>
 			</div>
 		</form>
-		<div class="mt-2">
+		<div class="mt-4">
 			<button class="btn btn-outline" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
