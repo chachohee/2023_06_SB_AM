@@ -14,9 +14,12 @@
 			<div>
 				안녕하세요
 			</div>
-			<!-- modal -->
+			<!-- modal, popUp -->
 			<div>
 				<span class="modal-exam">모달예시</span>
+			</div>
+			<div>
+				<span class="popUp-exam">팝업예시</span>
 			</div>
 
 			<div class="layer-bg"></div>

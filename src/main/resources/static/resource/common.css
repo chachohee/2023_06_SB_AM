@@ -36,7 +36,7 @@ html > body {
 	border-bottom: 1px solid #525054;
 }
 
-.modal-exam {
+.modal-exam, .popUp-exam {
 	font-size: 2rem;
 }
 
