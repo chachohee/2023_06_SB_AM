@@ -43,6 +43,8 @@
 					href="/usr/article/list?boardId=2">FREE</a></li>
 				<c:choose>
 					<c:when test="${rq.getLoginedMemberId() == 0}">
+					<li class="hover:underline"><a
+							class="h-full px-3 flex items-center" href="/usr/member/join">JOIN</a></li>
 						<li class="hover:underline"><a
 							class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
 					</c:when>
