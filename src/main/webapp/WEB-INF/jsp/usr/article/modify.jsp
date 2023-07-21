@@ -5,11 +5,13 @@
 <c:set var="pageTitle" value="Modify" />
 
 <%@ include file="../common/head.jsp"%>
+<%@ include file="../common/toastUIEditorLib.jsp"%>
 
 <section class="mt-8">
 	<div class="container mx-auto">
-		<form action="doModify" method="post">
+		<form action="doModify" onsubmit="submitForm(this); return false;" method="post">
 			<input type="hidden" name="id" value=${article.id } />
+			<input type="hidden" name="body" />
 			<div class="table-box-type-1">
 				<table>
 					<colgroup>
@@ -33,16 +35,21 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input class="input input-bordered input-primary w-full max-w-xs" type="text" name="title" value="${article.title }"/></td>
+						<td><input class="input input-bordered input-primary w-full" type="text" name="title" value="${article.title }"/></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea class="textarea textarea-primary" name="body">${article.body }</textarea></td>
+						<%-- <td><textarea class="textarea textarea-primary" name="body">${article.body }</textarea></td> --%>
+						<td>
+							<div class="toast-ui-editor">
+      							<script type="text/x-template">${article.body }</script>
+    						</div>
+						</td>
 					</tr>
 					<tr>
 						<th>&nbsp;</th>
 						<td>
-							<input class="btn btn-outline" type="submit" value="수정" /> 
+							<button class="btn btn-outline">수정</button>
 							<input class="btn btn-outline" type="reset" value="다시입력" />
 						</td>
 					</tr>

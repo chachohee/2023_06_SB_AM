@@ -7,7 +7,7 @@
     font-style: normal;
 }
 
-html > body {
+html > body, html > body .ProseMirror, html > body .toastui-editor-contents {
 	font-family: 'NeoDunggeunmoPro-Regular';
 	text-underline-position: under;
 	
@@ -20,6 +20,16 @@ html > body {
 .table-box-type-1 > table th, .table-box-type-1 > table td {
 	border:1px solid black;
 	padding: 10px;
+	text-align: center;
+}
+
+html > body .ProseMirror, html > body .toastui-editor-contents p  {
+	color: white;
+	text-align: left;
+	font-size: 1rem;
+}
+
+html > body .toast-ui-viewer .toastui-editor-contents p{
 	text-align: center;
 }
 
@@ -86,4 +96,55 @@ html > body {
 	font-size: 4rem;
 	top: -5px;
 	cursor: pointer;
+}
+
+/* 토스트 UI */
+.absolute {
+  position:absolute;
+}
+
+.relative {
+  position:relative;
+}
+
+.top-0 {
+  top:0;
+}
+
+.left-0 {
+  left:0;
+}
+
+.w-full {
+  width:100%;
+}
+
+.ratio-16\/9::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.ratio-16\/9::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 16 * 9);
+}
+
+.ratio-9\/16::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 9 * 16);
+}
+
+.ratio-1\/1::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 1 * 1);
+}
+
+.ratio-1\/2::after {
+  content:"";
+  display:block;
+  padding-top:calc(100% / 1 * 2);
 }
