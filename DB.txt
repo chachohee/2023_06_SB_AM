@@ -146,6 +146,13 @@ SELECT IFNULL(SUM(`point`), 0) AS sumReactionPoint
 	AND relTypeCode = 'article'
 	AND relId = 5;
 
+SELECT r.*, m.nickname AS writerName
+FROM reply r
+LEFT JOIN `member` AS m 
+ON r.memberId = m.id
+WHERE relTypeCode = 'article'
+AND relId = 1;
+
 -- 데이터 추가
 INSERT INTO article
 SET updateDate = NOW(),
@@ -175,26 +182,26 @@ title = '제목',
 INSERT INTO `member`
 SET updateDate = NOW(),
 loginId = 'admin',
-loginPw = '1234',
+loginPw = SHA2('admin', 256),
 authLevel = 3,
 `name` = '관리자',
-nickname = '관리자닉네임',
+nickname = '관리자',
 cellphoneNum = '01012345678',
 email = 'admin@gmail.com';
 INSERT INTO `member`
 SET updateDate = NOW(),
 loginId = 'test1',
-loginPw = '1234',
+loginPw = SHA2('test1', 256),
 `name` = '회원1',
-nickname = '회원1닉네임',
+nickname = '회원1',
 cellphoneNum = '01012345678',
 email = 'test1@gmail.com';
 INSERT INTO `member`
 SET updateDate = NOW(),
 loginId = 'test2',
-loginPw = '1234',
+loginPw = SHA2('test2', 256),
 `name` = '회원2',
-nickname = '회원2닉네임',
+nickname = '회원2',
 cellphoneNum = '01012345678',
 email = 'test2@gmail.com';
 
@@ -227,3 +234,6 @@ memberId = 3,
 relTypeCode = 'article',
 relId = 2,
 `body` = '댓글2';
+
+-- 암호화
+SELECT SHA2('test1', 256);
